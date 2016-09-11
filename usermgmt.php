@@ -1,5 +1,6 @@
 <?php
-	include('dbconnection.php');
+	$doctitle = 'Benutzerverwaltung';
+	include_once('header.php');
 
 	if (isset($_POST))
 	{
@@ -8,22 +9,16 @@
 			newUser($_POST['userName'], $_POST['userPassword'], $_POST['userLastname'], $_POST['userFirstname']);
 		}
 	}
-
 	$users = listUsers();
 ?>
-<html>
-<head>
-<title>User Management</title>
-</head>
-<body>
-<h1>User Management</h1>
+
 <h2>Benutzerübersicht</h2>
 <table>
-<tr><th>Benutzername</th><th>Nachname</th><th>Vorname</th><th>Letzter Login</th></tr>
+<tr><th>Benutzername</th><th>Nachname</th><th>Vorname</th><th>Letzter Login</th><th>Administrator</th></tr>
 <?php
 	foreach ($users as $user)
 	{
-		echo '<tr><td>' . $user['userName'] . '</td><td>' . $user['userLastname'] . '</td><td>' . $user['userFirstname'] . '</td><td>' . $user['userLastlogin'] . '</td></tr>';
+		echo '<tr><td>' . $user['userName'] . '</td><td>' . $user['userLastname'] . '</td><td>' . $user['userFirstname'] . '</td><td>' . $user['userLastlogin'] . '</td><td>' . $user['userIsAdmin'] . '</tr>';
 	}
 ?>
 </table>
@@ -40,3 +35,6 @@
 <input type="submit" value="Hinzufügen"/>
 </form>
 
+<?php
+	include_once('footer.php');
+?>

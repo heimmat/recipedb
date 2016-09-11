@@ -1,15 +1,15 @@
-nav#headernav ul {
+nav.topnav ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 	background-color: #333;
 }
-nav#headernav ul li {
+nav.topnav ul li {
 	float: left;
 }
 
-nav#headernav ul li a {
+nav.topnav ul li a {
 	display: block;
 	color: white;
 	text-align: center;
@@ -17,20 +17,89 @@ nav#headernav ul li a {
 	text-decoration: none;
 }
 
-nav#headernav ul li a:hover:not(.active) {
+nav.topnav ul li a:hover:not(.active) {
 	background-color: #111;
 }
 
-nav#headernav ul li a.active {
+nav.topnav ul li a.active {
 	background-color: #4caf50;
 
 }
 
-nav#headernav ul li.right {
+nav.topnav ul li.right {
 	float: right;
 }
 
-@media screen and (max-width: 600px){
+nav.topnav ul li.hamburger {
+	display: none;
+}
+
+/*@media screen and (max-width: 600px){
     nav#headernav ul li.right, 
     nav#headernav ul li {float: none;}
+}*/
+ /* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
+@media screen and (max-width:700px) {
+  nav.topnav ul li:not(:first-child) {display: none;}
+  nav.topnav ul li.hamburger {
+    float: right;
+    display: inline-block;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
+@media screen and (max-width:700px) {
+	nav.topnav.responsive ul {
+  		position: relative;
+	}
+	nav.topnav.responsive ul li.hamburger {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	nav.topnav.responsive ul li {
+		float: none;
+		display: inline;
+	}
+	nav.topnav.responsive ul li a {
+		display: block;
+		text-align: left;
+	}	
+}
+
+nav.tab ul{
+	height: 30px;
+	float: left;
+	clear: both;
+}
+
+nav.tab ul li {
+	list-style-type: none;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	margin-right: 10px;
+	background-color: #ccc;
+	border-top: 1px solid #d4d4d1;
+	border-left: 1px solid #d4d4d1;
+	border-right: 1px solid #d4d4d1;
+}
+
+nav.tab ul li.current {
+	position: relative;
+	background-color: #fff;
+}
+
+nav.tab ul li a {
+	padding: 10px;
+	color: #fff;
+	text-decoration: none;
+}
+
+nav.tab ul li.current a {
+	color: #2e7da3;
+}
+
+.tabcontent {
+	display: none;
 }

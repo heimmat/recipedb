@@ -19,10 +19,19 @@
 	function listUsers()
 	{
 		global $pdo;
-		$sql = 'SELECT userId, userName, userLastname, userFirstname, userLastlogin FROM tblUsers;';
+		$sql = 'SELECT userId, userName, userLastname, userFirstname, userLastlogin, userIsAdmin FROM tblUsers;';
 		$prep_stat = $pdo->prepare($sql);
 		$prep_stat->execute();
 		return $prep_stat->fetchAll();
+	}
+
+	function listUser_byId($userId)
+	{
+		global $pdo;
+		$sql = 'SELECT userId, userName, userLastname, userFirstname, userLastlogin, userIsAdmin FROM tblUsers;';
+		$prep_stat = $pdo->prepare($sql);
+		$prep_stat->execute();
+		return $prep_stat->fetch();
 	}
 
 	/*function selectUser_byUsername($userName)
@@ -31,12 +40,12 @@
 		$sql = 'SELECT * FROM '
 	}*/
 
-	//returns userId when successful. else false
+	//returns user when successful. else false
 	function authenticateUser($userName, $userPassword)
 	{
 		global $pdo;
 		$retval = false;
-		$sql = 'SELECT userId, userName, userPassword FROM tblUsers WHERE userName = :userName;';
+		$sql = 'SELECT * FROM tblUsers WHERE userName = :userName;';
 		$prep_stat = $pdo->prepare($sql);
 		$prep_stat->bindParam(':userName', $userName);
 		$prep_stat->execute();
@@ -46,7 +55,7 @@
 			if (password_verify($userPassword, $result['userPassword']))
 			{
 				updateLastlogin($result['userId']);
-				$retval = $result['userId'];
+				$retval = $result;
 			}
 		}
 		return $retval;

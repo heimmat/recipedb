@@ -15,5 +15,29 @@ function setActiveClass()
 function documentInit()
 {
 	setActiveClass();
+	$(".tab ul li a").click(tabChange);
 }
 
+function hideMenu()
+{
+ 	var x = document.getElementById("headernav");
+    if (x.className === "topnav")
+    {
+        x.className += " responsive";
+    }
+    else
+    {
+        x.className = "topnav";
+    }
+}
+
+//http://jsfiddle.net/syahrasi/us8uc/
+function tabChange(event)
+{
+	event.preventDefault();
+	$(this).parent().addClass("current");
+	$(this).parent().siblings().removeClass("current");
+	var tab = $(this).attr("href");
+	$(".tabcontent").not(tab).css("display", "none");
+	$(tab).fadeIn();
+}
