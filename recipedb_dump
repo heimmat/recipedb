@@ -1,0 +1,145 @@
+-- MySQL dump 10.13  Distrib 5.5.50, for debian-linux-gnu (armv7l)
+--
+-- Host: localhost    Database: recipedb
+-- ------------------------------------------------------
+-- Server version	5.5.50-0+deb8u1
+
+--
+-- Table structure for table `tblCategory`
+--
+
+DROP TABLE IF EXISTS `tblCategory`;
+
+CREATE TABLE `tblCategory` (
+  `categoryId` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(255) NOT NULL,
+  `categoryDescription` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`categoryId`)
+); 
+
+--
+-- Table structure for table `tblGroupIngredients`
+--
+
+DROP TABLE IF EXISTS `tblGroupIngredients`;
+
+CREATE TABLE `tblGroupIngredients` (
+  `groupId` int(11) NOT NULL DEFAULT '0',
+  `ingredientId` int(11) NOT NULL DEFAULT '0',
+  `unitId` int(11) DEFAULT NULL,
+  `Amount` double NOT NULL,
+  `Description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`groupId`,`ingredientId`),
+  KEY `ingredientId` (`ingredientId`),
+  KEY `unitId` (`unitId`),
+  CONSTRAINT `tblGroupIngredients_ibfk_1` FOREIGN KEY (`groupId`) REFERENCES `tblIngredientGroup` (`groupId`),
+  CONSTRAINT `tblGroupIngredients_ibfk_2` FOREIGN KEY (`ingredientId`) REFERENCES `tblIngredients` (`ingredientId`),
+  CONSTRAINT `tblGroupIngredients_ibfk_3` FOREIGN KEY (`unitId`) REFERENCES `tblUnits` (`unitId`)
+);
+
+--
+-- Table structure for table `tblIngredientGroup`
+--
+
+DROP TABLE IF EXISTS `tblIngredientGroup`;
+
+CREATE TABLE `tblIngredientGroup` (
+  `groupId` int(11) NOT NULL AUTO_INCREMENT,
+  `groupName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`groupId`)
+);
+--
+-- Table structure for table `tblIngredients`
+--
+
+DROP TABLE IF EXISTS `tblIngredients`;
+
+CREATE TABLE `tblIngredients` (
+  `ingredientId` int(11) NOT NULL AUTO_INCREMENT,
+  `ingredientName` varchar(255) NOT NULL,
+  PRIMARY KEY (`ingredientId`)
+);
+
+--
+-- Table structure for table `tblRecipeCategory`
+--
+
+DROP TABLE IF EXISTS `tblRecipeCategory`;
+
+CREATE TABLE `tblRecipeCategory` (
+  `recipeId` int(11) NOT NULL DEFAULT '0',
+  `categoryId` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`recipeId`,`categoryId`),
+  KEY `categoryId` (`categoryId`),
+  CONSTRAINT `tblRecipeCategory_ibfk_1` FOREIGN KEY (`recipeId`) REFERENCES `tblRecipes` (`recipeId`),
+  CONSTRAINT `tblRecipeCategory_ibfk_2` FOREIGN KEY (`categoryId`) REFERENCES `tblCategory` (`categoryId`)
+);
+
+--
+-- Table structure for table `tblRecipeIngrGroup`
+--
+
+DROP TABLE IF EXISTS `tblRecipeIngrGroup`;
+
+CREATE TABLE `tblRecipeIngrGroup` (
+  `recipeId` int(11) NOT NULL DEFAULT '0',
+  `groupId` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`recipeId`,`groupId`),
+  KEY `groupId` (`groupId`),
+  CONSTRAINT `tblRecipeIngrGroup_ibfk_1` FOREIGN KEY (`recipeId`) REFERENCES `tblRecipes` (`recipeId`),
+  CONSTRAINT `tblRecipeIngrGroup_ibfk_2` FOREIGN KEY (`groupId`) REFERENCES `tblIngredientGroup` (`groupId`)
+);
+
+--
+-- Table structure for table `tblRecipes`
+--
+
+DROP TABLE IF EXISTS `tblRecipes`;
+
+CREATE TABLE `tblRecipes` (
+  `recipeId` int(11) NOT NULL AUTO_INCREMENT,
+  `recipeTitle` varchar(255) NOT NULL,
+  `recipeSubtitle` varchar(255) DEFAULT NULL,
+  `recipePortions` int(11) DEFAULT NULL,
+  `recipeFile` varchar(255) NOT NULL,
+  `recipePreptime` time DEFAULT NULL,
+  `recipeCooktime` time DEFAULT NULL,
+  `recipeWaittime` time DEFAULT NULL,
+  `recipeSource` varchar(255) DEFAULT NULL,
+  `recipeImage` varchar(255) DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`recipeId`),
+  UNIQUE KEY `recipeFile` (`recipeFile`),
+  KEY `fk_RecipesUserId` (`userId`),
+  CONSTRAINT `fk_RecipesUserId` FOREIGN KEY (`userId`) REFERENCES `tblUsers` (`userId`)
+); 
+
+--
+-- Table structure for table `tblUnits`
+--
+
+DROP TABLE IF EXISTS `tblUnits`;
+
+CREATE TABLE `tblUnits` (
+  `unitId` int(11) NOT NULL AUTO_INCREMENT,
+  `unitShortname` varchar(20) NOT NULL,
+  `unitName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`unitId`)
+);
+
+--
+-- Table structure for table `tblUsers`
+--
+
+DROP TABLE IF EXISTS `tblUsers`;
+
+CREATE TABLE `tblUsers` (
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
+  `userName` varchar(255) NOT NULL,
+  `userPassword` varchar(255) NOT NULL,
+  `userLastlogin` datetime DEFAULT NULL,
+  `userLastname` varchar(255) DEFAULT NULL,
+  `userFirstname` varchar(255) DEFAULT NULL,
+  `userIsAdmin` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`userId`)
+);
