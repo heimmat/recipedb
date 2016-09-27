@@ -16,6 +16,10 @@ function documentInit()
 {
 	setActiveClass();
 	$(".tab ul li a").click(tabChange);
+	if (window.location.hash)
+	{
+		$("a[href='" + window.location.hash + "']").click();
+	}
 }
 
 function hideMenu()
@@ -38,6 +42,7 @@ function tabChange(event)
 	$(this).parent().addClass("current");
 	$(this).parent().siblings().removeClass("current");
 	var tab = $(this).attr("href");
+	window.location.hash = tab;
 	$(".tabcontent").not(tab).css("display", "none");
 	$(tab).fadeIn();
 }
