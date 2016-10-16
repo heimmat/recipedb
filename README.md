@@ -57,7 +57,13 @@ On a system with apache web server, php and MySQL, the following steps need to b
 5. **Add user to tblUsers**
 
    ```
-   mysql> insert into tblUsers (userName,userPassword,userLastname,userFirstname,userIsAdmin) values ('admin','admin','Min','Ad',1);
+   mysql> insert into tblUsers (userName,userPassword,userLastname,userFirstname,userIsAdmin) values ('admin','$2y$10$MKE/AF2yt/3wv7zFpkZlMOsbqYOsVEbQ51vRHQz.NFRW9BpB534Q.','Min','Ad',1);
    ```
+   
+   The cryptic second value is the hashed version of the password (which is `admin`).
 
-Now, if the server is running correctly and the files are on the server, you should see the login page.
+6. **Login**
+
+   Login on the page (e.g. `localhost/recipedb/`) using username and password `admin`.
+
+Now, everything should work and it is easy to see, where things need to be done.
