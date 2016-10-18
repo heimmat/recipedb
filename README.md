@@ -1,5 +1,9 @@
 # recipedb - Recipe database with pdf output
 
+## Requirements
+
+LAMP-Server with PHP version > 5.5
+
 ## Setup database on local server
 
 On a system with apache web server, php and MySQL, the following steps need to be performed to use the here provided code:
