@@ -1,6 +1,5 @@
 $(document).ready(documentInit);
 
-
 function setActiveClass()
 {
 	var currentPage = location.href;

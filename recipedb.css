@@ -1,3 +1,8 @@
+label {
+	display: block;
+	margin.top: 10px;
+}
+
 nav.topnav ul {
 	list-style-type: none;
 	margin: 0;
